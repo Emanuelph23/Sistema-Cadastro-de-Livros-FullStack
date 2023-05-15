@@ -43,6 +43,33 @@ function App() {
 
   }
 
+//Função para obter os valores dos inputs
+  function handleChange(event){
+
+    const {name,value} = event.target;
+
+    setNewLivro({...newLivro, [name]: value});
+  }
+
+//Função para inserir um novo livro
+  function handleSubmit(event){
+    event.preventDefault();
+    
+    axios.post(`http://localhost:3000/livros`, newLivro)
+    .then((response) => {
+      setLivros([...livros, {id: response.data.id, ...newLivro}])
+      setNewLivro({
+        title: "",
+        author: "", 
+        edicao: "",
+        editora: "",
+        pages: "",
+        anoPublicacao: ""
+      })
+    })
+    .catch((err) => console.log(err));
+  }
+
   return (
     <>
     <div className="header-livros">
@@ -50,7 +77,7 @@ function App() {
     </div>
     <Container>
       <h2>Novo Livro</h2>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="title">Título do Livro</label>
           <input
@@ -59,7 +86,8 @@ function App() {
             className='form-control'
             id='title'
             value={newLivro.title}
-            placeholder='Lógica de programação e Algoritmo com Javascript'
+            onChange={handleChange}
+            placeholder='Ex: Lógica de programação e Algoritmo com Javascript'
             required 
           />
         </div>
@@ -71,6 +99,7 @@ function App() {
             className='form-control'
             id='author'
             value={newLivro.author}
+            onChange={handleChange}
             placeholder='Edécio Fernando Lepsen'
             required 
           />
@@ -83,7 +112,8 @@ function App() {
             className='form-control'
             id='edicao'
             value={newLivro.edicao}
-            placeholder='3 edição'
+            onChange={handleChange}
+            placeholder='1 edição'
             required 
           />
         </div>
@@ -95,6 +125,7 @@ function App() {
             className='form-control'
             id='editora'
             value={newLivro.editora}
+            onChange={handleChange}
             placeholder='Novatec'
             required 
           />
@@ -107,7 +138,8 @@ function App() {
             className='form-control'
             id='pages'
             value={newLivro.pages}
-            placeholder='288'
+            onChange={handleChange}
+            placeholder='100'
             required 
           />
         </div>
@@ -119,7 +151,8 @@ function App() {
             className='form-control'
             id='name'
             value={newLivro.anoPublicacao}
-            placeholder='2020'
+            onChange={handleChange}
+            placeholder='2023'
             required 
           />
         </div>

@@ -1,11 +1,14 @@
 
 .header-livros{
-    background-color: aqua;
+    background-color: #652D90;
+    color: #fff;
+    border-bottom: 20px solid #904BC2; 
+    margin-bottom: 10px;
 }
 
 h1{
     text-transform: uppercase;
-    padding-left: 110px;
+    padding-left: 100px;
     padding-top: 15px;
     padding-bottom: 15px;
 }

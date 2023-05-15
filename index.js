@@ -32,12 +32,12 @@ app.post("/livros", (req, res) => {
         VALUES ("${title}", "${author}", "${edicao}", "${editora}", ${pages}, ${anoPublicacao})
     `;
 
-    db.query(sql, (err) => {
+    db.query(sql, (err, result) => {
         if(err){
             throw err;
         }
 
-        res.json({msg: "Livro cadastrado com sucesso!"})
+        res.json({msg: "Livro cadastrado com sucesso!", id: result.insertId});
     })
 })
 
